@@ -132,6 +132,15 @@ int SDLW_GetWindowDisplayMode (SDL_Window* window, SDL_DisplayMode* mode);
 int SDLW_SetWindowFullscreen (SDLW_Window* window, int fullscreen);
 
 /**
+ * @brief Set's the desired window's fake fullscreen state
+ *
+ * @param[in] window The desired window
+ * @param[in] fullscreen The value (SDLW_TRUE or SDLW_FALSE)
+ * @return int - 0 on success or a negative error code; (Failure reasons will be logged automatically)
+ */
+int SDLW_SetWindowFullscreenDesktop (SDLW_Window* window, int fullscreen);
+
+/**
  * @brief Get's the desired window's fullscreen state
  *
  * @param[in] window The desired window

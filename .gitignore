@@ -1,6 +1,28 @@
+# VS Code
 .vscode
 
 build/
 builddir/
+bin/
 
 out.txt
+
+# Make
+Makefile
+SDLW.make
+
+# CodeLite
+.codelite
+.build-release
+.build-debug
+
+compile_flags.txt
+
+SDLW.mk
+SDLW.project
+SDLW.workspace
+SDLW.txt
+
+# XCode
+
+# Visual Studio

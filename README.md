@@ -4,7 +4,6 @@
     <
     <a href="#what-and-why">Description</a> |
     <a href="#dependencies">Dependencies</a> |
-    <a href="#configuration">Configuration</a> |
     <a href="#compiling">Compiling</a> |
     <a href="#roadmap">Roadmap</a>
     >

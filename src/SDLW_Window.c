@@ -201,6 +201,28 @@ int SDLW_SetWindowFullscreen (SDLW_Window* window, int fullscreen) {
     return value;
 }
 
+int SDLW_SetWindowFullscreenDesktop (SDLW_Window* window, int fullscreen) {
+    _SDLW_Window* handle = (_SDLW_Window*)window;
+
+    Uint32 mode;
+
+    if (fullscreen) {
+        mode = SDL_WINDOW_FULLSCREEN_DESKTOP;
+    } else {
+        mode = 0;
+    }
+
+    int value = SDL_SetWindowFullscreen (handle->window, mode);
+
+    if (value) {
+        SDL_Log ("SDLW Error: %s\n", SDL_GetError ());
+    } else {
+        handle->fullscreen = fullscreen;
+    }
+
+    return value;
+}
+
 int SDLW_IsWindowFullscreen (SDLW_Window* window) {
     _SDLW_Window* handle = (_SDLW_Window*)window;
 
