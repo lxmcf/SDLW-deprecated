@@ -37,11 +37,11 @@ SDLW can simply have the source code directly added to your current project, how
 ```bash
 # This is just a recommendation method
 meson builddir --prefix=/usr
-meson install -C build
+sudo meson install -C builddir
 
 # Use these commands to just build the tests
 meson builddir -Dbuild_examples=true
-meson compile -C builddir
+sudo meson compile -C builddir
 ```
 
 ### Roadmap
