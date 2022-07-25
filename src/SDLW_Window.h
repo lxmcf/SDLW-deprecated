@@ -32,12 +32,14 @@ typedef struct _SDLW_Window {
         SDLW_MouseEnterFunction mouse_enter;
         SDLW_MouseCursorFunction cursor;
         SDLW_KeyFunction key;
+
+        SDLW_UnknownFunction unkown;
     } callbacks;
 } _SDLW_Window;
 
-// Private/Internal API
-// None of these functions are intended for the end user to call or see
-//
+/*************************************************************************
+ *                      Private/Internal API
+ *************************************************************************/
 void _SDLW_PositionCallback (_SDLW_Window* window, int x, int y);
 void _SDLW_ResizeCallback (_SDLW_Window* window, int width, int height);
 void _SDLW_CloseCallback (_SDLW_Window* window);
@@ -48,6 +50,8 @@ void _SDLW_MouseButtonCallback (_SDLW_Window* window, int x, int y, int button, 
 void _SDLW_MouseCursorCallback (_SDLW_Window* window, int x, int y);
 void _SDLW_MouseEnterCallback (_SDLW_Window* window, int entered);
 void _SDLW_MouseScrollCallback (_SDLW_Window* window, int xscroll, int yscroll);
-void _SDLW_KeyCallback (_SDLW_Window* window, int state, int repeat, SDL_Keysym key);
+void _SDLW_KeyCallback (_SDLW_Window* window, int state, int repeat, SDL_Keycode key);
+
+void _SDLW_UnknownCallback (_SDLW_Window* window, SDL_Event* event);
 
 #endif // SDLW_WINDOW_H

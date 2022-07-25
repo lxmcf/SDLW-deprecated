@@ -1,7 +1,7 @@
 #include "SDLW/SDLW.h"
 
 void position_callback (SDLW_Window* window, int x, int y);
-void key_callback (SDLW_Window* window, int state, int repeat, SDL_Keysym key);
+void key_callback (SDLW_Window* window, int state, int repeat, SDL_Keycode key);
 void mouse_callback (SDLW_Window* window, int x, int y, int button, int action, int clicks);
 
 int main (int argc, const char* argv[]) {
@@ -30,9 +30,9 @@ void position_callback (SDLW_Window* window, int x, int y) {
     printf ("Window position: %d, %d\n", x, y);
 }
 
-void key_callback (SDLW_Window* window, int state, int repeat, SDL_Keysym key) {
+void key_callback (SDLW_Window* window, int state, int repeat, SDL_Keycode key) {
     if (state == SDL_PRESSED && !repeat) {
-        printf ("Key pressed: %s\n", SDL_GetKeyName (key.sym));
+        printf ("Key pressed: %s\n", SDL_GetKeyName (key));
     }
 }
 

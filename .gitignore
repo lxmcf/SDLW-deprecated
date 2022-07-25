@@ -6,6 +6,7 @@ builddir/
 bin/
 
 out.txt
+notebook.md
 
 # Make
 Makefile

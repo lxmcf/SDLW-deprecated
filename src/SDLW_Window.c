@@ -27,8 +27,8 @@ SDLW_Window* SDLW_CreateWindow (char* title, int width, int height, Uint32 windo
     handle->fullscreen = SDLW_FALSE;
     handle->icon = NULL;
 
-    int value = SDL_SetRenderDrawColor (handle->renderer, 100, 149, 237, SDL_ALPHA_OPAQUE);
-    if (value) {
+    int result = SDL_SetRenderDrawColor (handle->renderer, 100, 149, 237, SDL_ALPHA_OPAQUE);
+    if (result) {
         SDL_Log ("SDLW Error: %s\n", SDL_GetError ());
 
         SDL_DestroyRenderer (handle->renderer);
@@ -46,13 +46,13 @@ int SDLW_ShouldWindowClose (SDLW_Window* window) {
     return handle->should_close;
 }
 
-int SDLW_SetWindowShouldClose (SDLW_Window* window, int value) {
+int SDLW_SetWindowShouldClose (SDLW_Window* window, int result) {
     _SDLW_Window* handle = (_SDLW_Window*)window;
 
-    if (handle->should_close == value)
+    if (handle->should_close == result)
         return 1;
 
-    handle->should_close = value;
+    handle->should_close = result;
 
     return 0;
 }
@@ -82,7 +82,7 @@ void SDLW_PollWindowEvents (SDLW_Window* window) {
             break; // SDL_MOUSEWHEEL
 
             case SDL_KEYDOWN: case SDL_KEYUP:
-                _SDLW_KeyCallback (handle, handle->event.key.state, handle->event.key.repeat, handle->event.key.keysym);
+                _SDLW_KeyCallback (handle, handle->event.key.state, handle->event.key.repeat, handle->event.key.keysym.sym);
             break; // SDL_KEYDOWN && SDL_KEYUP
 
             case SDL_WINDOWEVENT:
@@ -120,6 +120,9 @@ void SDLW_PollWindowEvents (SDLW_Window* window) {
                     break; // SDL_WINDOWEVENT_LEAVE
                 }
             break; // SDL_WINDOWEVENT
+
+            default:
+                _SDLW_UnknownCallback (handle, &handle->event);
         }
     }
 }
@@ -159,24 +162,24 @@ int SDLW_IsWindowBordered (SDLW_Window* window) {
 int SDLW_SetWindowDisplayMode (SDLW_Window* window, const SDL_DisplayMode* mode) {
     _SDLW_Window* handle = (_SDLW_Window*)window;
 
-    int value = SDL_SetWindowDisplayMode (handle->window, mode);
+    int result = SDL_SetWindowDisplayMode (handle->window, mode);
 
-    if (value) {
+    if (result) {
         SDL_Log ("SDLW Error: %s\n", SDL_GetError ());
     }
 
-    return value;
+    return result;
 }
 
 int SDLW_GetWindowDisplayMode (SDL_Window* window, SDL_DisplayMode* mode) {
     _SDLW_Window* handle = (_SDLW_Window*)window;
 
-    int value = SDL_GetWindowDisplayMode (handle->window, mode);
-    if (value) {
+    int result = SDL_GetWindowDisplayMode (handle->window, mode);
+    if (result) {
         SDL_Log ("SDLW Error: %s\n", SDL_GetError ());
     }
 
-    return value;
+    return result;
 }
 
 int SDLW_SetWindowFullscreen (SDLW_Window* window, int fullscreen) {
@@ -190,15 +193,15 @@ int SDLW_SetWindowFullscreen (SDLW_Window* window, int fullscreen) {
         mode = 0;
     }
 
-    int value = SDL_SetWindowFullscreen (handle->window, mode);
+    int result = SDL_SetWindowFullscreen (handle->window, mode);
 
-    if (value) {
+    if (result) {
         SDL_Log ("SDLW Error: %s\n", SDL_GetError ());
     } else {
         handle->fullscreen = fullscreen;
     }
 
-    return value;
+    return result;
 }
 
 int SDLW_SetWindowFullscreenDesktop (SDLW_Window* window, int fullscreen) {
@@ -212,15 +215,15 @@ int SDLW_SetWindowFullscreenDesktop (SDLW_Window* window, int fullscreen) {
         mode = 0;
     }
 
-    int value = SDL_SetWindowFullscreen (handle->window, mode);
+    int result = SDL_SetWindowFullscreen (handle->window, mode);
 
-    if (value) {
+    if (result) {
         SDL_Log ("SDLW Error: %s\n", SDL_GetError ());
     } else {
         handle->fullscreen = fullscreen;
     }
 
-    return value;
+    return result;
 }
 
 int SDLW_IsWindowFullscreen (SDLW_Window* window) {
@@ -246,7 +249,6 @@ void SDLW_SetWindowIcon (SDLW_Window* window, SDL_Surface* icon) {
 
     handle->icon = icon;
 
-    // NOTE: Consider auto clearing icon pointer
     SDL_SetWindowIcon (handle->window, icon);
 }
 
@@ -283,23 +285,23 @@ void SDLW_GetWindowMinimumSize (SDLW_Window* window, int* width, int* height) {
 int SDLW_SetWindowOpacity (SDLW_Window* window, float opacity) {
     _SDLW_Window* handle = (_SDLW_Window*)window;
 
-    int value = SDL_SetWindowOpacity (handle->window, opacity);
-    if (value) {
+    int result = SDL_SetWindowOpacity (handle->window, opacity);
+    if (result) {
         SDL_Log ("SDLW Error: %s\n", SDL_GetError ());
     }
 
-    return value;
+    return result;
 }
 
 int SDLW_GetWindowOpacity (SDLW_Window* window, float* opacity) {
     _SDLW_Window* handle = (_SDLW_Window*)window;
 
-    int value = SDL_GetWindowOpacity (handle->window, opacity);
-    if (value) {
+    int result = SDL_GetWindowOpacity (handle->window, opacity);
+    if (result) {
         SDL_Log ("SDLW Error: %s\n", SDL_GetError ());
     }
 
-    return value;
+    return result;
 }
 
 void SDLW_SetWindowPosition (SDLW_Window* window, int x, int y) {
@@ -428,6 +430,11 @@ SDLW_KeyFunction SDLW_SetKeyCallback (SDLW_Window* window, SDLW_KeyFunction call
     return handle->callbacks.key = callback;
 }
 
+SDLW_UnknownFunction SDLW_SetUnknownCallback (SDLW_Window* window, SDLW_UnknownFunction callback) {
+    _SDLW_Window* handle = (_SDLW_Window*)window;
+
+    return handle ->callbacks.unkown = callback;
+}
 
 /*************************************************************************
  *                  Internal callback related functions
@@ -488,8 +495,14 @@ void _SDLW_MouseScrollCallback (_SDLW_Window* window, int xscroll, int yscroll) 
     }
 } // SDL_MOUSEWHEEL
 
-void _SDLW_KeyCallback (_SDLW_Window* window, int state, int repeat, SDL_Keysym key) {
+void _SDLW_KeyCallback (_SDLW_Window* window, int state, int repeat, SDL_Keycode key) {
     if (window->callbacks.key) {
         window->callbacks.key ((SDLW_Window*)window, state, repeat, key);
     }
 } // SDL_KEYDOWN && SDL_KEYUP
+
+void _SDLW_UnknownCallback (_SDLW_Window* window, SDL_Event* event) {
+    if (window->callbacks.unkown) {
+        window->callbacks.unkown ((SDLW_Window*)window, event);
+    }
+} // All unhandled events

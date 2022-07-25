@@ -2,7 +2,8 @@ message ('Examples will build!')
 
 examples = [
     'window',
-    'callbacks'
+    'callbacks',
+    'unknown'
 ]
 
 foreach current_example : examples

@@ -13,6 +13,7 @@ SDLW (SDL Wrapper) is a simple 'wrapper' for SDL2's window and renderer with an 
 
 ### What and why?
 ---
+
 SDLW was inspired by the syntax of GLFW3, I found myself spending more time getting boiler plate SDL window and renderer creation than actual prototyping.
 
 In every project I would start, I would either start copy-pasting a large chunk of code just to get basic events working or just rewriting the same code base with minor tweaks, I may as well build a simple wrapper I can include to expedite this step and here we are!
@@ -21,10 +22,12 @@ In every project I would start, I would either start copy-pasting a large chunk 
 
 ### Dependencies
 ---
+
 - `sdl2`
 
 ### Build Dependencies
 ---
+
 - `gcc`
 - `SDL2-devel`
 - `meson`
@@ -59,8 +62,11 @@ This roadmap outlines my current plans to implement features and will be updated
 
 - __Version 2.1__
   - Add extra renderer functions (Primitive rendering, etc)
-  - Add compile time configurations
+  - ~~Add compile time configurations~~
 
 - __Version 3.0__
   - Custom texture wrapper
   - Texture loading via stb_image
+
+- __Version 4.0__
+  - Rework to allow multiple windows (May need total re-write of callback system)

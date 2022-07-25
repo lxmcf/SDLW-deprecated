@@ -1,4 +1,4 @@
-project ('SDLW', [ 'c' ], version: '1.0.0')
+project ('SDLW', [ 'c' ], version: '2.0.0')
 
 # Build variables
 project_source = []
@@ -13,11 +13,11 @@ cc = meson.get_compiler ('c')
 add_project_arguments (cc_arguments, language: 'c')
 
 project_source = files (
-    'src/SDLW_Window.c'
+    'src/SDLW_Window.c',
+    'src/SDLW_Renderer.c'
 )
 
 project_include = include_directories (
-    'src',
     'include'
 )
 

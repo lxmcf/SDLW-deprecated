@@ -1,3 +1,9 @@
+workspace "SDLW"
+    configurations {
+        "Debug",
+        "Release"
+    }
+
 project "SDLW"
     kind "StaticLib"
     language "C"
@@ -10,18 +16,18 @@ project "SDLW"
     files {
         "include/SDLW/SDLW.h",
 
-        "src/SDLW_Window.c",
-        "src/SDLW_Window.h"
+        "src/*.c",
+        "src/*.h"
     }
 
-    includedirs {
-        "include/"
-    }
-
-    defines { }
+    includedirs { "include/" }
 
     systemversion "latest"
 
-    links {
-        "sdl2"
-    }
+    links { "sdl2" }
+
+    filter "configurations:Debug"
+        flags { "Symbols" }
+
+    filter "configurations:Release"
+        optimize "On"

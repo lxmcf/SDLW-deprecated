@@ -2,7 +2,7 @@
  * @file SDLW.h
  * @author Alex Macafee (lxmcf20@gmail.com)
  * @brief
- * @version 1.0.0
+ * @version 2.0.0
  * @date 2022-06-08
  *
  * @copyright Copyright (c) 2022
@@ -17,7 +17,7 @@
 #define SDLW_TRUE 1
 #define SDLW_FALSE 0
 
-#define SDLW_VERSION_MAJOR 1
+#define SDLW_VERSION_MAJOR 2
 #define SDLW_VERSION_MINOR 0
 #define SDLW_VERSION_REVISION 0
 
@@ -317,6 +317,23 @@ SDL_Window* SDLW_GetInternalWindow (SDLW_Window* window);
  * and requests.
  *************************************************************************/
 
+int SDLW_RenderClear (SDLW_Window* window);
+int SDLW_RenderClearColour (SDLW_Window* window, SDL_Colour colour);
+int SDLW_RenderClearColor (SDLW_Window* window, SDL_Color color); // NOTE: Should make this a macro
+
+int SDLW_RenderTexture (SDLW_Window* window, SDL_Texture* texture, int x, int y);
+int SDLW_RenderTextureRect (SDLW_Window* window, SDL_Texture* texture, const SDL_Rect* source, const SDL_Rect* destination);
+int SDLW_RenderTextureRectEx (SDLW_Window* window, SDL_Texture* texture, const SDL_Rect* source, const SDL_Rect* destination, const double angle, const SDL_Point* origin, const SDL_RendererFlip flip);
+
+int SDLW_SetDrawBlendMode (SDLW_Window* window, SDL_BlendMode mode);
+int SDLW_GetDrawBlendMode (SDLW_Window* window, SDL_BlendMode* mode);
+
+int SDLW_SetDrawColour (SDLW_Window* window, SDL_Colour colour);
+int SDLW_SetDrawColor (SDLW_Window* window, SDL_Color color); // NOTE: Should make this a macro
+
+int SDLW_GetDrawColour (SDL_Window* window, SDL_Colour* colour);
+int SDLW_GetDrawColor (SDL_Window* window, SDL_Color* color); // NOTE: Should make this a macro
+
 /**
  * @brief Returns the desired windows internal SDL renderer
  *
@@ -339,7 +356,9 @@ typedef void (*SDLW_MouseButtonFunction) (SDLW_Window* window, int x, int y, int
 typedef void (*SDLW_MouseCursorFunction) (SDLW_Window* window, int x, int y);
 typedef void (*SDLW_MouseEnterFunction) (SDLW_Window* window, int entered);
 typedef void (*SDLW_MouseScrollFunction) (SDLW_Window* window, int xscroll, int yscroll);
-typedef void (*SDLW_KeyFunction) (SDLW_Window* window, int state, int repeat, SDL_Keysym key);
+typedef void (*SDLW_KeyFunction) (SDLW_Window* window, int state, int repeat, SDL_Keycode key);
+
+typedef void (*SDLW_UnknownFunction) (SDLW_Window* window, SDL_Event* event);
 
 /*************************************************************************
  *                      Callback related functions
@@ -357,6 +376,8 @@ SDLW_MouseEnterFunction SDLW_SetMouseEnterCallback (SDLW_Window* window, SDLW_Mo
 
 SDLW_MouseScrollFunction SDLW_SetMouseScrollCallback (SDLW_Window* window, SDLW_MouseScrollFunction callback);
 SDLW_KeyFunction SDLW_SetKeyCallback (SDLW_Window* window, SDLW_KeyFunction callback);
+
+SDLW_UnknownFunction SDLW_SetUnknownCallback (SDLW_Window* window, SDLW_UnknownFunction callback);
 
 #ifdef __cplusplus
 }
