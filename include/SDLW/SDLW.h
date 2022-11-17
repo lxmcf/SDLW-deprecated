@@ -334,6 +334,15 @@ int SDLW_SetDrawColor (SDLW_Window* window, SDL_Color color); // NOTE: Should ma
 int SDLW_GetDrawColour (SDL_Window* window, SDL_Colour* colour);
 int SDLW_GetDrawColor (SDL_Window* window, SDL_Color* color); // NOTE: Should make this a macro
 
+int SDLW_SetRenderTarget (SDLW_Window* window, SDL_Texture* texture);
+SDL_Texture* SDLW_GetRenderTarget (SDLW_Window* window);
+
+int SDLW_SetRenderScale (SDLW_Window* window, float scale_x, float scale_y);
+void SDLW_GetRenderScale (SDLW_Window* window, float* scale_x, float* scale_y);
+
+int SDLW_SetRenderViewport (SDLW_Window* window, const SDL_Rect* view);
+void SDLW_GetRenderViewport (SDLW_Window* window, SDL_Rect* view);
+
 /**
  * @brief Returns the desired windows internal SDL renderer
  *

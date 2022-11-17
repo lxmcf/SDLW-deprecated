@@ -95,6 +95,48 @@ int SDLW_GetDrawColor (SDL_Window* window, SDL_Color* color) {
     return SDLW_GetDrawColour(window, color);
 }
 
+int SDLW_SetRenderTarget (SDLW_Window* window, SDL_Texture* texture) {
+    _SDLW_Window* handle = (_SDLW_Window*)window;
+
+    int value = SDL_SetRenderTarget (handle->renderer, texture);
+
+    return value;
+}
+
+SDL_Texture* SDLW_GetRenderTarget (SDLW_Window* window) {
+    _SDLW_Window* handle = (_SDLW_Window*)window;
+
+    return SDL_GetRenderTarget (handle->renderer);
+}
+
+int SDLW_SetRenderScale (SDLW_Window* window, float scale_x, float scale_y) {
+    _SDLW_Window* handle = (_SDLW_Window*)window;
+
+    int value = SDL_RenderSetScale (handle->renderer, scale_x, scale_y);
+
+    return value;
+}
+
+void SDLW_GetRenderScale (SDLW_Window* window, float* scale_x, float* scale_y) {
+    _SDLW_Window* handle = (_SDLW_Window*)window;
+
+    SDL_RenderGetScale (handle->renderer, scale_x, scale_y);
+}
+
+int SDLW_SetRenderViewport (SDLW_Window* window, const SDL_Rect* view) {
+    _SDLW_Window* handle = (_SDLW_Window*)window;
+
+    int value = SDL_RenderSetViewport (handle->renderer, view);
+
+    return value;
+}
+
+void SDLW_GetRenderViewport (SDLW_Window* window, SDL_Rect* view) {
+    _SDLW_Window* handle = (_SDLW_Window*)window;
+
+    SDL_RenderGetViewport (handle->renderer, view);
+}
+
 /*************************************************************************
  *                          Internal functions
  *************************************************************************/
